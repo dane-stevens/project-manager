@@ -19,7 +19,7 @@ export async function action({ request }: Route.ActionArgs) {
     hId,
     name: data.name,
     description: data.description
-  }).returning({ id: projects.id })
+  }).$returningId()
 
   await db.insert(messageBoards).values({
     title: 'Message Board',

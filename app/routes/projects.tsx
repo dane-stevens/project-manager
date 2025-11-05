@@ -14,24 +14,6 @@ export async function loader({ request }: Route.LoaderArgs) {
   }
 }
 
-export async function action({ request }) {
-  const formData = await request.formData()
-
-  const data = Object.fromEntries(formData)
-
-  const project = await db.insert(projects).values({
-    name: data.name,
-    description: data.description
-  }).returning({ id: projects.id })
-
-  await db.insert(messageBoards).values({
-    title: 'Message Board',
-    projectId: project[0].id
-  })
-
-  return null
-
-}
 
 export function ServerComponent({ loaderData }: Route.ComponentProps) {
   const { projects } = loaderData
