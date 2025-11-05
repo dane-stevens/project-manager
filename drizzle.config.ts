@@ -4,5 +4,7 @@ console.log(process.env.DATABASE_URL)
 export default defineConfig({
   dialect: 'mysql',
   schema: './drizzle/schema.ts',
-  url: String(process.env.DATABASE_URL)
+  dbCredentials: {
+    url: String(process.env.DATABASE_URL)
+  }
 })
