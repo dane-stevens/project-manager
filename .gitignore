@@ -7,3 +7,5 @@
 /build/
 
 **.db
+drizzle/meta/
+drizzle**.sql
