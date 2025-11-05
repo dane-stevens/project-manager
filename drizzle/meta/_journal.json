@@ -8,6 +8,20 @@
       "when": 1762366200868,
       "tag": "0000_chubby_dexter_bennett",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1762367022335,
+      "tag": "0001_legal_kingpin",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1762367045456,
+      "tag": "0002_flimsy_redwing",
+      "breakpoints": true
     }
   ]
 }

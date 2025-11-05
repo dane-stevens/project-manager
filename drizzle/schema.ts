@@ -1,18 +1,20 @@
-import { text, bigint, datetime, mysqlTable, boolean, varchar } from "drizzle-orm/mysql-core";
+import { text, bigint, datetime, mysqlTable, boolean, varchar, uniqueIndex } from "drizzle-orm/mysql-core";
 import { createId } from '@paralleldrive/cuid2'
 import { relations, sql } from "drizzle-orm";
 
 export const users = mysqlTable('users', {
   id: bigint({ mode: "number", unsigned: true }).primaryKey().autoincrement(),
   hId: varchar({ length: 35 }).$defaultFn(() => `${createId()}`).notNull().unique(),
-  username: text().notNull(),
+  username: varchar({ length: 255 }).notNull(),
   createdAt: datetime({ fsp: 3 })
     .notNull()
     .default(sql`CURRENT_TIMESTAMP(3)`),
   updatedAt: datetime({ fsp: 3 })
     .notNull()
     .default(sql`CURRENT_TIMESTAMP(3)`).$onUpdate(sql`CURRENT_TIMESTAMP(3)`),
-})
+}, (t) => [
+  uniqueIndex('usernameIdx').on(t.username)
+])
 
 
 export const projects = mysqlTable('projects', {
