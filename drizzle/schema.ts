@@ -1,47 +1,66 @@
-import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { text, bigint, datetime, mysqlTable, boolean, varchar } from "drizzle-orm/mysql-core";
 import { createId } from '@paralleldrive/cuid2'
 import { relations, sql } from "drizzle-orm";
 
-export const users = sqliteTable('users', {
-  id: integer({ mode: 'number' }).primaryKey({ autoIncrement: true }),
-  hId: text().$defaultFn(() => `${createId()}`).notNull(),
+export const users = mysqlTable('users', {
+  id: bigint({ mode: "number", unsigned: true }).primaryKey().autoincrement(),
+  hId: varchar({ length: 35 }).$defaultFn(() => `${createId()}`).notNull().unique(),
   username: text().notNull(),
-  createdAt: text().default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-  updatedAt: text().default(sql`(CURRENT_TIMESTAMP)`).notNull().$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
+  createdAt: datetime({ fsp: 3 })
+    .notNull()
+    .default(sql`CURRENT_TIMESTAMP(3)`),
+  updatedAt: datetime({ fsp: 3 })
+    .notNull()
+    .default(sql`CURRENT_TIMESTAMP(3)`).$onUpdate(sql`CURRENT_TIMESTAMP(3)`),
 })
 
 
-export const projects = sqliteTable('projects', {
-  id: integer({ mode: 'number' }).primaryKey({ autoIncrement: true }),
-  hId: text().$defaultFn(() => `${createId()}`).notNull(),
+export const projects = mysqlTable('projects', {
+  id: bigint({ mode: "number", unsigned: true }).primaryKey().autoincrement(),
+  hId: varchar({ length: 35 }).$defaultFn(() => `${createId()}`).notNull().unique(),
   name: text().notNull(),
   description: text(),
-  createdAt: text().default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-  updatedAt: text().default(sql`(CURRENT_TIMESTAMP)`).notNull().$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
+  createdAt: datetime({ fsp: 3 })
+    .notNull()
+    .default(sql`CURRENT_TIMESTAMP(3)`),
+  updatedAt: datetime({ fsp: 3 })
+    .notNull()
+    .default(sql`CURRENT_TIMESTAMP(3)`).$onUpdate(sql`CURRENT_TIMESTAMP(3)`),
+
 })
-export const messageBoards = sqliteTable('messageBoards', {
-  id: integer({ mode: 'number' }).primaryKey({ autoIncrement: true }),
-  hId: text().$defaultFn(() => `${createId()}`).notNull(),
+export const messageBoards = mysqlTable('messageBoards', {
+  id: bigint({ mode: "number", unsigned: true }).primaryKey().autoincrement(),
+  hId: varchar({ length: 35 }).$defaultFn(() => `${createId()}`).notNull().unique(),
   title: text().notNull(),
-  categories: text({ mode: 'json' }).$type<{ slug: string; label: string }[]>(),
-  projectId: integer({ mode: 'number' }).notNull(),
-  createdAt: text().default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-  updatedAt: text().default(sql`(CURRENT_TIMESTAMP)`).notNull().$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
+  categories: text().$type<{ slug: string; label: string }[]>(),
+  projectId: bigint({ mode: "number", unsigned: true }).notNull(),
+  createdAt: datetime({ fsp: 3 })
+    .notNull()
+    .default(sql`CURRENT_TIMESTAMP(3)`),
+  updatedAt: datetime({ fsp: 3 })
+    .notNull()
+    .default(sql`CURRENT_TIMESTAMP(3)`).$onUpdate(sql`CURRENT_TIMESTAMP(3)`),
+
 })
 
-export const messages = sqliteTable('messages', {
-  id: integer({ mode: 'number' }).primaryKey({ autoIncrement: true }),
-  hId: text().$defaultFn(() => `${createId()}`).notNull(),
+export const messages = mysqlTable('messages', {
+  id: bigint({ mode: "number", unsigned: true }).primaryKey().autoincrement(),
+  hId: varchar({ length: 35 }).$defaultFn(() => `${createId()}`).notNull().unique(),
   title: text().notNull(),
   html: text().notNull(),
   markdown: text().notNull(),
   raw: text().notNull(),
   category: text(),
-  isPublished: integer({ mode: 'boolean' }).default(false),
-  isPinned: integer({ mode: 'boolean' }).default(false),
-  messageBoardId: integer({ mode: 'number' }).notNull(),
-  createdAt: text().default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-  updatedAt: text().default(sql`(CURRENT_TIMESTAMP)`).notNull().$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
+  isPublished: boolean().default(false),
+  isPinned: boolean().default(false),
+  messageBoardId: bigint({ mode: "number", unsigned: true }).notNull(),
+  createdAt: datetime({ fsp: 3 })
+    .notNull()
+    .default(sql`CURRENT_TIMESTAMP(3)`),
+  updatedAt: datetime({ fsp: 3 })
+    .notNull()
+    .default(sql`CURRENT_TIMESTAMP(3)`).$onUpdate(sql`CURRENT_TIMESTAMP(3)`),
+
 })
 
 

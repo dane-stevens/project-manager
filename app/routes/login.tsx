@@ -1,6 +1,6 @@
 import { Form } from "react-router";
 import type { Route } from "./+types/login";
-import { commitSession, createUserSession } from "~/utils/session.server";
+import { createUserSession } from "~/utils/session.server";
 import { db } from "~/utils/db.server";
 import { users } from "drizzle/schema";
 
@@ -10,7 +10,6 @@ export async function loader({ request }) {
     where: (users, { eq }) => eq(users.username, 'dane@dsmedia.ca')
   })
   if (!user) {
-    const now = new Date()
     await db.insert(users).values({
       username: 'dane@dsmedia.ca',
     })
