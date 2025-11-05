@@ -11,4 +11,5 @@ export default [
     route('project/:project_hId/message-board/:messageBoard_hId/message/:message_hId', 'routes/message.tsx'),
   ]),
   route('login', 'routes/login.tsx'),
+  route("_healthcheck", "routes/_health.ts")
 ] satisfies RouteConfig;
