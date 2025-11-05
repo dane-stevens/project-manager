@@ -5,7 +5,7 @@ import { relations, sql } from "drizzle-orm";
 export const users = mysqlTable('users', {
   id: bigint({ mode: "number", unsigned: true }).primaryKey().autoincrement(),
   hId: varchar({ length: 35 }).$defaultFn(() => `${createId()}`).notNull().unique(),
-  username: varchar({ length: 255 }).notNull(),
+  username: varchar({ length: 255 }).notNull().unique(),
   createdAt: datetime({ fsp: 3 })
     .notNull()
     .default(sql`CURRENT_TIMESTAMP(3)`),
@@ -13,7 +13,6 @@ export const users = mysqlTable('users', {
     .notNull()
     .default(sql`CURRENT_TIMESTAMP(3)`).$onUpdate(sql`CURRENT_TIMESTAMP(3)`),
 }, (t) => [
-  uniqueIndex('usernameIdx').on(t.username)
 ])
 
 
