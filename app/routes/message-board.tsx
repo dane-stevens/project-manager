@@ -46,7 +46,7 @@ export function ServerComponent({ loaderData, params }: Route.ComponentProps) {
           return (
             <Link key={message.id} to={href("/project/:project_hId/message-board/:messageBoard_hId/message/:message_hId", { project_hId: params.project_hId, messageBoard_hId: params.messageBoard_hId, message_hId: message.hId })} className="bg-zinc-900 px-4 py-2 rounded-lg">
               <H2>{message.title}</H2>
-              <div className="text-zinc-500 text-sm">{intlFormat(parseJSON(message.createdAt), { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' })}</div>
+              <div className="text-zinc-500 text-sm">{intlFormat(message.createdAt, { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' })}</div>
             </Link>
           )
         })}
