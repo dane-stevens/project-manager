@@ -6,6 +6,3 @@
 /.react-router/
 /build/
 
-**.db
-drizzle/meta/
-drizzle/**.sql
