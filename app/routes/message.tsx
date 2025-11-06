@@ -15,7 +15,7 @@ export async function loader({ request, params }: Route.LoaderArgs) {
 
 }
 
-export function ServerComponent({ loaderData }: Route.ComponentProps) {
+export default function Message({ loaderData }: Route.ComponentProps) {
   const { message } = loaderData
   return (
     <div>

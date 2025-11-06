@@ -15,7 +15,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 
-export function ServerComponent({ loaderData }: Route.ComponentProps) {
+export default function Projects({ loaderData }: Route.ComponentProps) {
   const { projects } = loaderData
   return (
     <div>
@@ -26,7 +26,7 @@ export function ServerComponent({ loaderData }: Route.ComponentProps) {
         {
           projects?.map((project) => {
             return (
-              <Link key={project.id} to={href("/project/:project_hId", { project_hId: project.hId })}>
+              <Link className="group" key={project.id} to={href("/project/:project_hId", { project_hId: project.hId })}>
                 <Card>
                   {project.name}
                 </Card>

@@ -7,6 +7,7 @@ import { H1, H2 } from "~/components/Headings";
 import { intlFormat, parseJSON } from 'date-fns'
 import { UTCDate } from '@date-fns/utc'
 import { sql } from "drizzle-orm";
+import { Card } from "~/components/Card";
 
 export async function loader({ request, params }: Route.LoaderArgs) {
   await auth(request)
@@ -34,7 +35,7 @@ export async function loader({ request, params }: Route.LoaderArgs) {
   }
 }
 
-export function ServerComponent({ loaderData, params }: Route.ComponentProps) {
+export default function MessageBoard({ loaderData, params }: Route.ComponentProps) {
   const { messageBoard } = loaderData
   return (
     <div className="">
@@ -44,9 +45,11 @@ export function ServerComponent({ loaderData, params }: Route.ComponentProps) {
       <Spacing>
         {messageBoard?.messages?.map((message) => {
           return (
-            <Link key={message.id} to={href("/project/:project_hId/message-board/:messageBoard_hId/message/:message_hId", { project_hId: params.project_hId, messageBoard_hId: params.messageBoard_hId, message_hId: message.hId })} className="bg-zinc-900 px-4 py-2 rounded-lg">
-              <H2>{message.title}</H2>
-              <div className="text-zinc-500 text-sm">{intlFormat(message.createdAt, { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' })}</div>
+            <Link key={message.id} to={href("/project/:project_hId/message-board/:messageBoard_hId/message/:message_hId", { project_hId: params.project_hId, messageBoard_hId: params.messageBoard_hId, message_hId: message.hId })} className="group">
+              <Card>
+                <H2>{message.title}</H2>
+                <div className="text-zinc-500 text-sm">{intlFormat(message.createdAt, { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' })}</div>
+              </Card>
             </Link>
           )
         })}

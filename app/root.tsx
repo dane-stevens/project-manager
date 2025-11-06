@@ -9,6 +9,7 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import { Toaster } from "sonner";
+import { GlobalLoading } from "./components/GlobalLoading";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -35,6 +36,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         {children}
         <Toaster />
+        <GlobalLoading />
         <ScrollRestoration />
       </body>
     </html>

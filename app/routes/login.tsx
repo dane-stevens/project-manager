@@ -34,7 +34,7 @@ export async function action({ request }: Route.ActionArgs) {
   })
 }
 
-export function ServerComponent() {
+export default function Login() {
   return (
     <Form method="POST">
       <input type="email" name="username" />

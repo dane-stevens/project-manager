@@ -3,6 +3,7 @@ import type { Route } from "./+types/project";
 import { db } from "~/utils/db.server";
 import { href, Link, redirect } from "react-router";
 import { H1 } from "~/components/Headings";
+import { Card } from "~/components/Card";
 
 export async function loader({ request, params }: Route.LoaderArgs) {
   await auth(request)
@@ -18,7 +19,7 @@ export async function loader({ request, params }: Route.LoaderArgs) {
   return { project }
 }
 
-export function ServerComponent({ loaderData }: Route.ComponentProps) {
+export default function Project({ loaderData }: Route.ComponentProps) {
   const { project } = loaderData
   return (
     <div>
@@ -26,26 +27,31 @@ export function ServerComponent({ loaderData }: Route.ComponentProps) {
       <H1>{project.name}</H1>
       {project.description && <div className="text-zinc-400 text-center -mt-6">{project.description}</div>}
 
-      <div className="mt-8 grid grid-cols-3 gap-4">
-        <Card title="Message Board">
-          <Link to={href("/project/:project_hId/message-board/:messageBoard_hId", { project_hId: project.hId, messageBoard_hId: project.messageBoards[0].hId })}>Message Board</Link>
-        </Card>
-        <Card title="To-dos"></Card>
-        <Card title="Docs"></Card>
-        <Card title="Chat"></Card>
-        <Card title="Schedule"></Card>
-        <Card title="Automatic Check-ins"></Card>
+      <div
+        className="mt-8 grid grid-cols-3 gap-4">
+        <Link className="group" to={href("/project/:project_hId/message-board/:messageBoard_hId", { project_hId: project.hId, messageBoard_hId: project.messageBoards[0].hId })}>
+          <Card>
+            <CardTitle title="Message Board">
+              Message Board
+            </CardTitle>
+          </Card>
+        </Link>
+        <Link className="group"><Card><CardTitle title="To-dos"></CardTitle></Card></Link>
+        <Link className="group"><Card><CardTitle title="Docs"></CardTitle></Card></Link>
+        <Link className="group"><Card><CardTitle title="Chat"></CardTitle></Card></Link>
+        <Link className="group"><Card><CardTitle title="Schedule"></CardTitle></Card></Link>
+        <Link className="group"><Card><CardTitle title="Automatic Check-ins"></CardTitle></Card></Link>
 
 
       </div>
 
-    </div>
+    </div >
   )
 }
 
-function Card({ title, children }) {
+function CardTitle({ title, children }) {
   return (
-    <div className="bg-zinc-900 p-4 rounded-xl">
+    <div>
       <h2 className="text-center  font-semibold">{title}</h2>
       <div>{children}</div>
     </div>

@@ -20,6 +20,7 @@
     "@paralleldrive/cuid2": "^3.0.4",
     "@react-router/serve": "7.9.2",
     "@remix-run/node-fetch-server": "0.9.0",
+    "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "drizzle-orm": "^0.44.7",
     "mysql2": "^3.15.3",

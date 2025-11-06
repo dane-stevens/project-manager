@@ -11,7 +11,7 @@ export const users = mysqlTable('users', {
     .default(sql`CURRENT_TIMESTAMP(3)`),
   updatedAt: datetime({ fsp: 3 })
     .notNull()
-    .default(sql`CURRENT_TIMESTAMP(3)`).$onUpdate(sql`CURRENT_TIMESTAMP(3)`),
+    .default(sql`CURRENT_TIMESTAMP(3)`).$onUpdate(() => sql`CURRENT_TIMESTAMP(3)`),
 }, (t) => [
 ])
 
@@ -26,9 +26,9 @@ export const projects = mysqlTable('projects', {
     .default(sql`CURRENT_TIMESTAMP(3)`),
   updatedAt: datetime({ fsp: 3 })
     .notNull()
-    .default(sql`CURRENT_TIMESTAMP(3)`).$onUpdate(sql`CURRENT_TIMESTAMP(3)`),
-
+    .default(sql`CURRENT_TIMESTAMP(3)`).$onUpdate(() => sql`CURRENT_TIMESTAMP(3)`),
 })
+
 export const messageBoards = mysqlTable('messageBoards', {
   id: bigint({ mode: "number", unsigned: true }).primaryKey().autoincrement(),
   hId: varchar({ length: 35 }).$defaultFn(() => `${createId()}`).notNull().unique(),
@@ -40,7 +40,7 @@ export const messageBoards = mysqlTable('messageBoards', {
     .default(sql`CURRENT_TIMESTAMP(3)`),
   updatedAt: datetime({ fsp: 3 })
     .notNull()
-    .default(sql`CURRENT_TIMESTAMP(3)`).$onUpdate(sql`CURRENT_TIMESTAMP(3)`),
+    .default(sql`CURRENT_TIMESTAMP(3)`).$onUpdate(() => sql`CURRENT_TIMESTAMP(3)`),
 
 })
 
@@ -60,7 +60,7 @@ export const messages = mysqlTable('messages', {
     .default(sql`CURRENT_TIMESTAMP(3)`),
   updatedAt: datetime({ fsp: 3 })
     .notNull()
-    .default(sql`CURRENT_TIMESTAMP(3)`).$onUpdate(sql`CURRENT_TIMESTAMP(3)`),
+    .default(sql`CURRENT_TIMESTAMP(3)`).$onUpdate(() => sql`CURRENT_TIMESTAMP(3)`),
 
 })
 

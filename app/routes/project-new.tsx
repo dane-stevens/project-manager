@@ -16,7 +16,7 @@ export async function action({ request }: Route.ActionArgs) {
   const hId = createId()
 
   const project = await db.insert(projects).values({
-    hId,
+    hId: hId,
     name: data.name,
     description: data.description
   }).$returningId()
@@ -30,7 +30,7 @@ export async function action({ request }: Route.ActionArgs) {
 
 }
 
-export function ServerComponent() {
+export default function NewProject() {
   return (
     <div>
 

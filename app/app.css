@@ -5,9 +5,15 @@
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  @apply bg-white dark:bg-neutral-950;
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
@@ -16,4 +22,47 @@ body {
 
 .bn-editor {
   min-height: 400px;
+}
+
+.card {
+  position: relative;
+  isolation: isolate;
+}
+
+
+.card::before,
+.card::after {
+  opacity: 0;
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--gradient-angle),
+    var(--color-emerald-500),
+    var(--color-sky-500),
+    var(--color-purple-500),
+    var(--color-sky-500),
+    var(--color-emerald-500)
+  );
+    animation: rotation 4s linear infinite;
+  transition: all;
+  transition-duration: 200ms;
+}
+
+.card:hover::before
+{
+  opacity: 1;
+}
+.card:hover::after {
+  opacity: 0.4;
+  filter: blur(0.7rem);
+}
+
+
+
+@keyframes rotation {
+  0% {--gradient-angle: 0deg;}
+  100% {--gradient-angle:360deg;}
 }
