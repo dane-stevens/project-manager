@@ -1,5 +1,4 @@
 import type { ReactNode } from "react"
-import { useNavigation } from "react-router"
 
 export function Field({
   type,
@@ -22,7 +21,5 @@ export function Field({
 }
 
 export function Submit({ children }: { children: ReactNode }) {
-  const navigation = useNavigation()
-  const isLoading = navigation.formData
-  return <button type="submit" className="bg-zinc-200 text-zinc-900 px-4 py-2 rounded-lg disabled:text-red-600" disabled={isLoading}>{children}</button>
+  return <button type="submit" className="bg-zinc-200 text-zinc-900 px-4 py-2 rounded-lg disabled:text-red-600" > {children}</ button>
 }
