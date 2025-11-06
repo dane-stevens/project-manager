@@ -1,12 +1,11 @@
 import type { ReactNode } from "react"
-import { useFetchers, useNavigation } from "react-router"
+import { useFetchers, } from "react-router"
 
 export function Field({
   type,
   name,
   placeholder
 }) {
-
 
   return (
     <div className="border rounded-lg border-zinc-800">
